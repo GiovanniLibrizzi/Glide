@@ -25,7 +25,7 @@ namespace Glide {
         private RenderTarget2D _renderTarget;
 
 
-        Scene scene = new Scene();
+        World scene;
 
 
         public Game1() {
@@ -64,11 +64,14 @@ namespace Glide {
 
             // TODO: use this.Content to load your game content here
             Texture2D tPlayer = Content.Load<Texture2D>("Player");
+            //Texture2D tile_main = Content.Load<Texture2D>("tileset_glide");
+            scene = new World("level1.json", Content);
 
             scene.scene = new List<Entity> {
                 new Player(tPlayer, new Vector2(20, 20), scene),
                 new NormalTile(tPlayer, new Vector2(20, 70), scene)
             };
+
         }
 
         protected override void Update(GameTime gameTime) {

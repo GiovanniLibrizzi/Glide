@@ -33,7 +33,7 @@ namespace Glide.Content.Entities {
 
 
 
-        public Actor(Texture2D texture, Vector2 pos, Scene scene) : base(scene) {
+        public Actor(Texture2D texture, Vector2 pos, World scene) : base(scene) {
 
             position = pos;
             this.texture = texture;

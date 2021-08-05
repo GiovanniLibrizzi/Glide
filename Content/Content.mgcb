@@ -13,6 +13,21 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../Levels/level1.json
+/copy:../Levels/level1.json;level1.json
+
+#begin ../Levels/tile_main.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Levels/tile_main.png;tile_main.png
+
 #begin Player.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Glide.Content {
@@ -8,5 +9,23 @@ namespace Glide.Content {
         public static float Lerp(float firstFloat, float secondFloat, float by) {
             return firstFloat * (1 - by) + secondFloat * by;
         }
+
+        
     }
+
+
+    public struct Vector2Int : IEquatable<Vector2Int> {
+
+        public int x, y;
+
+        public Vector2Int(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public bool Equals([AllowNull] Vector2Int other) {
+            throw new NotImplementedException();
+        }
+    }
+
 }

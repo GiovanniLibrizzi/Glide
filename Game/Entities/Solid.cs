@@ -10,7 +10,7 @@ namespace Glide.Content.Entities {
         public Texture2D texture { get; set; }
         public Transform transform;
 
-        public Solid(Texture2D texture, Vector2 position, Scene scene) : base(scene) {
+        public Solid(Texture2D texture, Vector2 position, World scene) : base(scene) {
             this.texture = texture;
             this.position = position;
 

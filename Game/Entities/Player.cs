@@ -12,7 +12,7 @@ namespace Glide.Content {
 
         
        
-        public Player(Texture2D texture, Vector2 pos, Scene scene) : base(texture, pos, scene) {
+        public Player(Texture2D texture, Vector2 pos, World scene) : base(texture, pos, scene) {
             mspd = 2.0f;
             jspd = 5.0f;
             friction = 0.1f;
