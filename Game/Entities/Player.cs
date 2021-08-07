@@ -22,7 +22,7 @@ namespace Glide.Content {
 
             // debug reset
             if (Input.keyPressed(Keys.R)) {
-                position = new Vector2(20, 20);
+                position = new Vector2(120, 20);
                 velocity = new Vector2(0, 0);
             }
 
@@ -39,7 +39,7 @@ namespace Glide.Content {
                 Move(Dir.Stop);
             }
 
-            if (Input.keyPressed(Input.Jump) && onGround ) {
+            if (Input.keyPressed(Input.Jump) && onGround) {
                 System.Diagnostics.Debug.WriteLine("JUMP!");
                 Jump();
             }

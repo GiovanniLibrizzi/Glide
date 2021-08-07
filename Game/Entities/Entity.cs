@@ -7,10 +7,10 @@ namespace Glide.Content {
     class Entity {
         public int ID { get; set; }
         public List<Component> components = new List<Component>();
-        public World scene;
+        public World world;
 
-        public Entity (World scene) {
-            this.scene = scene;
+        public Entity (World world) {
+            this.world = world;
         }
 
         public void AddComponent(Component component) {

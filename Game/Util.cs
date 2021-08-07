@@ -10,6 +10,14 @@ namespace Glide.Content {
             return firstFloat * (1 - by) + secondFloat * by;
         }
 
+
+        public static void Log(string message) {
+            System.Diagnostics.Debug.WriteLine(message);
+        }
+
+        //public static float Clamp(float value, float min, float max) {
+        //    return Math.Min(max, Math.Max(value, min));
+        //}
         
     }
 

@@ -55,16 +55,20 @@ namespace Glide.Content.Entities {
 
         // Stops actor at collision objects 
         public void CollisionStop() {
-            foreach (Solid s in scene.scene.OfType<Solid>()) {
+            bool groundCheck = false;
+            foreach (Solid s in world.scene.OfType<Solid>()) {
                 if ((velocity.X > 0 && IsTouching(s, Dir.Left)) ||
                     (velocity.X < 0 && IsTouching(s, Dir.Right))) velocity.X = 0;
 
-                onGround = IsTouching(s, Dir.Top);
+                if (IsTouching(s, Dir.Top)) {
+                    groundCheck = true;
+                }
 
                 if ((velocity.Y > 0 && IsTouching(s, Dir.Top)) ||
                     (velocity.Y < 0 && IsTouching(s, Dir.Bottom))) velocity.Y = 0;
 
             }
+            onGround = groundCheck;
         }
 
         // Moves actor the direction specified
@@ -100,31 +104,39 @@ namespace Glide.Content.Entities {
 
         // Checks if actor is touching an entity on a certain side of said entity
         public bool IsTouching(Entity entity, Dir dir) {
-            if (!entity.HasComponent<Sprite>()) return false;
+            Rectangle entRect;
             Sprite sprite = entity.GetComponent<Sprite>();
             Rectangle myRect = texture.Bounds;
             Vector2 entPos = entity.GetComponent<Transform>().position;
-            Rectangle entRect = sprite.texture.Bounds;
+
+            if (entity.HasComponent<Sprite>()) {
+                entRect = sprite.texture.Bounds;
+
+            } else {
+  
+                Collision s = (Collision)entity;
+                entRect = new Rectangle(0, 0, s.rectangle.Width, s.rectangle.Height);
+            }
 
             switch (dir) {
                 case Dir.Left:
                     return position.X + myRect.Right + velocity.X > entPos.X + entRect.Left &&
                        position.X + myRect.Left < entPos.X + entRect.Left &&
                        position.Y + myRect.Bottom > entPos.Y + entRect.Top &&
-                       position.Y + myRect.Top < entPos.Y + entRect.Bottom;
+                       position.Y + myRect.Top+1 < entPos.Y + entRect.Bottom;
                 case Dir.Right:
-                    return position.X + myRect.Left + velocity.X < entPos.X + entRect.Right &&
+                    return position.X + (myRect.Left) + velocity.X < entPos.X + entRect.Right &&
                        position.X + myRect.Right > entPos.X + entRect.Right &&
                        position.Y + myRect.Bottom > entPos.Y + entRect.Top &&
-                       position.Y + myRect.Top < entPos.Y + entRect.Bottom;
+                       position.Y + myRect.Top+1 < entPos.Y + entRect.Bottom;
 
                 case Dir.Top:
                     return position.Y + myRect.Bottom + velocity.Y > entPos.Y + entRect.Top &&
-                        position.Y + myRect.Top < entPos.Y + entRect.Top &&
+                        position.Y + myRect.Top+1 < entPos.Y + entRect.Top &&
                         position.X + myRect.Right > entPos.X + entRect.Left &&
                         position.X + myRect.Left < entPos.X + entRect.Right;
                 case Dir.Bottom:
-                    return position.Y + (myRect.Top - 1) + velocity.Y < entPos.Y + entRect.Bottom &&
+                    return position.Y + (myRect.Top+1) + velocity.Y < entPos.Y + (entRect.Bottom-1) &&
                         position.Y + myRect.Bottom > entPos.Y + entRect.Bottom &&
                         position.X + myRect.Right > entPos.X + entRect.Left &&
                         position.X + myRect.Left < entPos.X + entRect.Right;

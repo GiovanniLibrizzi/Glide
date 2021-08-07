@@ -25,7 +25,11 @@ namespace Glide {
         private RenderTarget2D _renderTarget;
 
 
-        World scene;
+        World world;
+        Camera camera;
+        Player player;
+        Texture2D tPlayer;
+        SpriteFont font1;
 
 
         public Game1() {
@@ -53,30 +57,46 @@ namespace Glide {
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            //world.addCollision(0);
         }
 
         protected override void LoadContent() {
             _renderTarget = new RenderTarget2D(GraphicsDevice, CANVAS.Width, CANVAS.Height);
+            if (world != null)
+                camera = new Camera(world.worldSize);
+            else
+                camera = new Camera(new Vector2Int(int.MaxValue, int.MaxValue));
+
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             graphics.ApplyChanges();
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Texture2D tPlayer = Content.Load<Texture2D>("Player");
+            tPlayer = Content.Load<Texture2D>("Player");
+            font1 = Content.Load<SpriteFont>("Font1");
             //Texture2D tile_main = Content.Load<Texture2D>("tileset_glide");
-            scene = new World("level1.json", Content);
+            /*world = new World("level1.json", Content);
+            player = new Player(tPlayer, new Vector2(120, 20), world);
+            world.scene.Add(player);*/
 
-            scene.scene = new List<Entity> {
-                new Player(tPlayer, new Vector2(20, 20), scene),
-                new NormalTile(tPlayer, new Vector2(20, 70), scene)
-            };
+            /*world.scene = new List<Entity> {
+                player,
+                new NormalTile(tPlayer, new Vector2(190, 80), world)
+            };*/
 
         }
 
         protected override void Update(GameTime gameTime) {
             Input.GetState();
             Input.GetMouseState();
+
+            if (camera != null) 
+                camera.Follow(player);
+
+            float framerate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Window.Title = "Game - " + System.String.Format("{0:0.00}", framerate) + " FPS";
 
             if (Input.keyPressed(Keys.F)) {
                 if (graphics.IsFullScreen) {
@@ -86,15 +106,29 @@ namespace Glide {
                 }
             }
 
+            if (Input.keyPressed(Keys.F1)) {
+                world = new World("level1.json", Content);
+                player = new Player(tPlayer, new Vector2(120, 20), world);
+                world.scene.Add(player);
+                camera = new Camera(world.worldSize);
+            }
+            if (Input.keyPressed(Keys.F2)) {
+                world = new World("level2.json", Content);
+                player = new Player(tPlayer, new Vector2(120, 20), world);
+                world.scene.Add(player);
+            }
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
 
-
-            foreach(Entity entity in scene.scene) {
-                entity.Update(gameTime);
-                foreach(Component component in entity.components) {
-                    component.Update(gameTime);
+            if (world != null) {
+                foreach (Entity entity in world.scene) {
+                    entity.Update(gameTime);
+                    foreach (Component component in entity.components) {
+                        component.Update(gameTime);
+                    }
                 }
             }
             
@@ -112,17 +146,24 @@ namespace Glide {
 
             //Debug.WriteLine("Test");
 
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);//, transformMatrix: _camera.Transform);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.Transform);//, transformMatrix: _camera.Transform);
 
+            if (world != null) {
+                world.drawLevel(0, spriteBatch);
+            }
             //spriteBatch.Begin();
 
-            foreach (Entity entity in scene.scene) {
-                //if (entity.HasComponent<Sprite>()) {
-                    entity.GetComponent<Sprite>().Draw(spriteBatch);
-                    //spriteBatch.Draw(entity.GetComponent<Sprite>().texture, entity.GetComponent<Transform>().position, Color.White);
-                //}
+            if (world != null) {
+                foreach (Entity entity in world.scene) {
+                    if (entity.HasComponent<Sprite>()) {
+                        entity.GetComponent<Sprite>().Draw(spriteBatch);
+                        //spriteBatch.Draw(entity.GetComponent<Sprite>().texture, entity.GetComponent<Transform>().position, Color.White);
+                    }
+                }
             }
-            
+           /* string test = "test";
+            spriteBatch.DrawString(font1, , new Vector2(0, 0), Color.White, 0, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.5f);*/
+
             spriteBatch.End();
 
             // Don't mess with
@@ -130,6 +171,7 @@ namespace Glide {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
             spriteBatch.End();
+
 
             base.Draw(gameTime);
         }

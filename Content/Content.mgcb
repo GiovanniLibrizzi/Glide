@@ -16,6 +16,9 @@
 #begin ../Levels/level1.json
 /copy:../Levels/level1.json;level1.json
 
+#begin ../Levels/level2.json
+/copy:../Levels/level2.json;level2.json
+
 #begin ../Levels/tile_main.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -27,6 +30,25 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Levels/tile_main.png;tile_main.png
+
+#begin Collision.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Collision.png
+
+#begin Font1.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font1.spritefont
 
 #begin Player.png
 /importer:TextureImporter
