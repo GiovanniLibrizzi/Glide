@@ -23,7 +23,7 @@ namespace Glide.Content {
         private List<int> worldData = new List<int>();
 
         private List<int> collisionData = new List<int>() { 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 };
-        private List<int> climbableData = new List<int>() { 5, 6, 7, 14, 15, 22, 23, 30, 31 };
+        private List<int> climbableData = new List<int>() { 5, 6, 7, 14, 15, 22, 23, 30, 31, 38, 39 };
 
         private int levelTriggerData = 37;
 
@@ -51,7 +51,6 @@ namespace Glide.Content {
 
         public void Add(Player player) {
             scene.Add(player);
-            Util.Log(playerSpawn.x + " | " + playerSpawn.y);
             player.position.X = playerSpawn.x;
             player.position.Y = playerSpawn.y;
         }
@@ -89,18 +88,12 @@ namespace Glide.Content {
                 layers = array.layers[(int)Layer.Entities];
 
                 foreach (dynamic entity in layers.entities) {
-                    //Util.Log((string)entity.name);
                     switch ((string)entity.name) {
                         case "LevelTrigger":
-                            Util.Log((string)entity.values.levelNew);
                             scene.Add(new LevelTrigger((string)entity.values.levelNew, new Vector2((float)entity.x, (float)entity.y), new Vector2Int(tileSize.x, tileSize.y), this));
                             break;
                         case "Player":
-                            //Texture2D tPlayer = content.Load<Texture2D>("Player");
                             playerSpawn = new Vector2Int((int)entity.x, (int)entity.y);
-                            //Game1.player = new Player(tPlayer, new Vector2(entity.x, entity.y), this);
-                            //Player player = new Player(tPlayer, new Vector2(entity.x, entity.y), this);
-                            //scene.Add(player);
                             break;
                     }
                     

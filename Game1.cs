@@ -105,6 +105,8 @@ namespace Glide {
             player = new Player(tPlayer, new Vector2(120, 20), world);
             world.Add(player);
             camera = new Camera(world.worldSize);
+            camera.approach.X = -player.position.X - (player.texture.Width / Camera.mod.x);
+            camera.approach.Y = -player.position.Y - (player.texture.Height / Camera.mod.y);
         }
 
         protected override void Update(GameTime gameTime) {

@@ -32,7 +32,7 @@ namespace Glide.Content {
         private const float mspdBonk = 1f;
 
 
-        private const float gravGlide = 0.05f, gravClimb = 0f, gravBonk = 0.3f;
+        private const float gravGlide = 0.03f, gravClimb = 0f, gravBonk = 0.3f;
         private float[] grav = { gravityDef, gravityDef, gravGlide, gravClimb, gravityDef, gravBonk };
 
         private const float fricDef = 0.15f;
@@ -87,7 +87,7 @@ namespace Glide.Content {
                             velocity.Y = Util.Lerp(velocity.Y, 0, 0.05f);
                         }
                         if (Input.keyReleased(Input.Jump)) {
-                            velocity.Y = Util.Lerp(velocity.Y, 0, 0.5f);
+                            velocity.Y = Util.Lerp(velocity.Y, 0, 0.3f);
                         }
                     }
 
@@ -99,23 +99,32 @@ namespace Glide.Content {
                     if (touchingGround) {
                         StateGoto(pState.Idle);
                     }
+
+                    if (touchingClimbable) {
+                        //velocity.X = 0;
+                        velocity.Y = 0;
+                        //position.X += (int)direction*2;
+                        StateGoto(pState.WallClimb);
+                    }
                     break;
                 #endregion
                 #region Glide
                 case pState.Glide:
                     Move(direction, mspd);
 
-                    // Bonk
+                    velocity.Y = Math.Max(velocity.Y, -0.1f);
+
+
+
+
+                    // Transitions
+                        // Bonk
                     if (touchingWall && !touchingClimbable && Math.Abs(velocity.X) > 0f) {
                         velocity.X = -(int)direction * mspdBonk;
                         velocity.Y = -2f;
                         FlipDirection();
                         StateGoto(pState.Bonk);
                     }
-
-
-                    // Transitions
-
 
                     if (touchingClimbable) {
                         //velocity.X = 0;
