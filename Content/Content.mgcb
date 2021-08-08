@@ -19,6 +19,9 @@
 #begin ../Levels/level2.json
 /copy:../Levels/level2.json;level2.json
 
+#begin ../Levels/level3.json
+/copy:../Levels/level3.json;level3.json
+
 #begin ../Levels/tile_main.png
 /importer:TextureImporter
 /processor:TextureProcessor

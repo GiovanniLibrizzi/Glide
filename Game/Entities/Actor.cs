@@ -13,22 +13,31 @@ namespace Glide.Content.Entities {
         public Texture2D texture { get; set; }
         public Transform transform;
 
-        public Vector2 velocity;
+        protected Vector2 velocity;
 
-        public float friction;
-        public float mspd { get; set; }
-        public float jspd;
-        public float gravity = 0.1f;
+        protected float friction;
+        protected float mspd { get; set; }
+        protected float jspd;
+        protected float gravity = 0.15f;
+        protected const float gravityDef = 0.15f;
 
-        public bool onGround;
+        protected bool touchingGround;
+        protected bool touchingWall;
+        protected bool touchingClimbable;
 
-        public enum Dir {
-            Stop,
-            Right,
-            Left,
-            Top,
-            Bottom
+
+        protected enum Dir {
+            Stop = 0,
+            Right = 1,
+            Left = -1,
+            Up = 2,
+            Down = 3,
+            Top = 4,
+            Bottom = 5
+
         }
+
+        protected Dir direction;
 
 
 
@@ -47,63 +56,84 @@ namespace Glide.Content.Entities {
         }
 
         // Moves actor downwards
-        public void Gravity() {
+        protected void Gravity() {
             if (velocity.Y < 10) {
                 velocity.Y += gravity;
             }
         }
 
         // Stops actor at collision objects 
-        public void CollisionStop() {
-            bool groundCheck = false;
-            foreach (Solid s in world.scene.OfType<Solid>()) {
-                if ((velocity.X > 0 && IsTouching(s, Dir.Left)) ||
-                    (velocity.X < 0 && IsTouching(s, Dir.Right))) velocity.X = 0;
+        protected void CollisionStop() {
+            touchingGround = false;
+            touchingWall = false;
+            touchingClimbable = false;
+
+            foreach (Collision s in world.scene.OfType<Collision>()) {
+                if ((velocity.X > 0 && IsTouching(s, Dir.Left)) || (velocity.X < 0 && IsTouching(s, Dir.Right))) {
+                    velocity.X = 0;
+                    touchingWall = true;
+                    if (s.GetType() == typeof(Climbable)) {
+                        touchingClimbable = true;
+                    }
+                }
 
                 if (IsTouching(s, Dir.Top)) {
-                    groundCheck = true;
+                    touchingGround = true;
                 }
 
                 if ((velocity.Y > 0 && IsTouching(s, Dir.Top)) ||
                     (velocity.Y < 0 && IsTouching(s, Dir.Bottom))) velocity.Y = 0;
 
             }
-            onGround = groundCheck;
         }
 
+
+
         // Moves actor the direction specified
-        public void Move (Dir move) {
+        protected void Move (Dir move, float mspd) {
             switch (move) {
-                case Dir.Right: MoveRight(); break;
-                case Dir.Left: MoveLeft(); break;
+                case Dir.Right: MoveRight(mspd); break;
+                case Dir.Left: MoveLeft(mspd); break;
+                case Dir.Up: MoveUp(mspd); break;
+                case Dir.Down: MoveDown(mspd); break;
                 case Dir.Stop: StopMoving(); break;
                 default: StopMoving(); break;
             }
         }
-        public void MoveRight() {
+        private void MoveRight(float mspd) {
             if (velocity.X < mspd - friction) velocity.X += friction;
             else velocity.X = mspd;
         }
 
-        public void MoveLeft() {
+        private void MoveLeft(float mspd) {
             if (velocity.X > -mspd + friction) velocity.X -= friction;
             else velocity.X = -mspd;
         }
 
-        public void StopMoving() {
+        private void MoveUp(float mspd) {
+            if (velocity.Y > -mspd + friction) velocity.Y -= friction;
+            else velocity.Y = -mspd;
+        }
+
+        private void MoveDown(float mspd) {
+            if (velocity.Y < mspd - friction) velocity.Y += friction;
+            else velocity.Y = mspd;
+        }
+
+        protected void StopMoving() {
             if (velocity.X >= friction) velocity.X -= friction;
             else if (velocity.X <= -friction) velocity.X += friction;
             else if (velocity.X > -friction && velocity.X < friction) velocity.X = 0;
         }
 
-        public void Jump() {
+        protected void Jump(float jspd) {
             velocity.Y = -jspd;
-            onGround = false;
+            touchingGround = false;
         }
 
 
         // Checks if actor is touching an entity on a certain side of said entity
-        public bool IsTouching(Entity entity, Dir dir) {
+        protected bool IsTouching(Entity entity, Dir dir) {
             Rectangle entRect;
             Sprite sprite = entity.GetComponent<Sprite>();
             Rectangle myRect = texture.Bounds;
@@ -113,8 +143,8 @@ namespace Glide.Content.Entities {
                 entRect = sprite.texture.Bounds;
 
             } else {
-  
-                Collision s = (Collision)entity;
+                
+                SolidNoTexture s = (SolidNoTexture)entity;
                 entRect = new Rectangle(0, 0, s.rectangle.Width, s.rectangle.Height);
             }
 
@@ -146,6 +176,16 @@ namespace Glide.Content.Entities {
             }
         }
 
+        public static bool Colliding(Vector2 posA, Rectangle boxA, Vector2 posB, Rectangle boxB) {
+            return posA.X + boxA.Left < posB.X + boxB.Right &&
+                    posA.X + boxA.Right > posB.X + boxB.Left &&
+                    posA.Y + boxA.Top < posB.Y + boxB.Bottom &&
+                    posA.Y + boxA.Bottom > posB.Y + boxB.Top;
+        }
+
+        protected void FlipDirection() {
+            if (direction == Dir.Left) direction = Dir.Right; else direction = Dir.Left;
+        }
 
     }
 }

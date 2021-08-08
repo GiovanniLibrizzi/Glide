@@ -25,11 +25,19 @@ namespace Glide {
         private RenderTarget2D _renderTarget;
 
 
+        public static bool levelTransition = false;
+        public static string levelFile;
+
         World world;
         Camera camera;
         Player player;
         Texture2D tPlayer;
         SpriteFont font1;
+        public enum GameState {
+            TitleScreen,
+            InGame
+        }
+        public GameState state = GameState.TitleScreen;
 
 
         public Game1() {
@@ -88,10 +96,21 @@ namespace Glide {
 
         }
 
+        public static void LevelTransition(string level) {
+            levelTransition = true;
+            levelFile = level;
+        }
+        public void ToLevel(string level) {
+            world = new World(level, Content);
+            player = new Player(tPlayer, new Vector2(120, 20), world);
+            world.Add(player);
+            camera = new Camera(world.worldSize);
+        }
+
         protected override void Update(GameTime gameTime) {
             Input.GetState();
             Input.GetMouseState();
-
+                
             if (camera != null) 
                 camera.Follow(player);
 
@@ -107,17 +126,14 @@ namespace Glide {
             }
 
             if (Input.keyPressed(Keys.F1)) {
-                world = new World("level1.json", Content);
-                player = new Player(tPlayer, new Vector2(120, 20), world);
-                world.scene.Add(player);
-                camera = new Camera(world.worldSize);
+                ToLevel("level1.json");
             }
-            if (Input.keyPressed(Keys.F2)) {
-                world = new World("level2.json", Content);
-                player = new Player(tPlayer, new Vector2(120, 20), world);
-                world.scene.Add(player);
+            if (levelTransition) {
+                ToLevel(levelFile);
+                levelTransition = false;
             }
 
+           
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -136,7 +152,7 @@ namespace Glide {
             SpriteSystem.Update(gameTime);*/
             //ColliderSystem.Update(gameTime);
 
-            Input.oldMouseState = Input.newMouseState;
+            //Input.oldMouseState = Input.newMouseState;
             base.Update(gameTime);
         }
 
@@ -149,7 +165,7 @@ namespace Glide {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.Transform);//, transformMatrix: _camera.Transform);
 
             if (world != null) {
-                world.drawLevel(0, spriteBatch);
+                world.drawLevel(spriteBatch);
             }
             //spriteBatch.Begin();
 

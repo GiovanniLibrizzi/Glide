@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -18,11 +19,15 @@ namespace Glide.Content {
         //public static float Clamp(float value, float min, float max) {
         //    return Math.Min(max, Math.Max(value, min));
         //}
+
+        public static Rectangle RemoveRectPos(Rectangle rect) {
+            return new Rectangle(0, 0, rect.Width, rect.Height);
+        }
         
     }
 
 
-    public struct Vector2Int : IEquatable<Vector2Int> {
+    public struct Vector2Int {
 
         public int x, y;
 
@@ -31,9 +36,6 @@ namespace Glide.Content {
             this.y = y;
         }
 
-        public bool Equals([AllowNull] Vector2Int other) {
-            throw new NotImplementedException();
-        }
     }
 
 }
