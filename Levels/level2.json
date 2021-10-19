@@ -30,7 +30,16 @@
       "gridCellsX": 15,
       "gridCellsY": 21,
       "entities": [
-        {"name": "Player", "id": 0, "_eid": "40706077", "x": 16, "y": 240, "originX": 0, "originY": 0},
+        {
+          "name": "Player",
+          "id": 0,
+          "_eid": "40706077",
+          "x": 16,
+          "y": 240,
+          "originX": 0,
+          "originY": 0,
+          "values": {"direction": "Right"}
+        },
         {
           "name": "LevelTrigger",
           "id": 1,

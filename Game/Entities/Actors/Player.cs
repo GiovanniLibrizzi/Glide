@@ -10,7 +10,7 @@ using System.Linq;
 namespace Glide.Content {
     class Player : Actor {
 
-        private enum pState {
+        public enum pState {
             Idle,
             Jump,
             Glide,
@@ -21,11 +21,14 @@ namespace Glide.Content {
 
         private int tick = 0;
 
-
-        private pState state = pState.Idle;
+        public pState state { get; private set; }
+        //private pState state = pState.Idle;
         private pState statePrev = pState.Idle;
 
         private Vector2 startingPosition;
+        private Dir startingDir;
+
+        
 
 
         private const float mspdClimb = 0.8f;
@@ -35,7 +38,7 @@ namespace Glide.Content {
         private const float gravGlide = 0.03f, gravClimb = 0f, gravBonk = 0.3f;
         private float[] grav = { gravityDef, gravityDef, gravGlide, gravClimb, gravityDef, gravBonk };
 
-        private const float fricDef = 0.15f;
+        private const float fricDef = 0.11f;
         private const float fricAir = 0.06f;
         //private const float gravGlide = 0.05f;
         //private const float gravBonk = 0.3f;
@@ -46,16 +49,26 @@ namespace Glide.Content {
             friction = fricDef;
             direction = Dir.Right;
             startingPosition = position;
+            startingDir = direction;
+            
+            
         }
 
-        public override void Update(GameTime gameTime) { 
+        public override void Update(GameTime gameTime) {
 
+            // Initialize on runtime
+            if (tick == 0) {
+                //Util.Log(direction.ToString() + "bruh");
+                sprite.Scale(new Vector2((float)direction, 1f));
+            }
 
           
             // debug reset
             if (Input.keyPressed(Keys.R)) {
                 position = startingPosition;
+                direction = startingDir;
                 velocity = new Vector2(0, 0);
+                tick = 0;
             }
 
             gravity = grav[(int)state];
@@ -93,6 +106,7 @@ namespace Glide.Content {
 
                     //Transitions
                     if (Input.keyPressed(Input.Jump) && !touchingGround) {
+                        velocity.Y = 0;
                         StateGoto(pState.Glide);
                     }
 
@@ -139,8 +153,13 @@ namespace Glide.Content {
                         }
                         StateGoto(pState.Land);
                     }
+
+                    //if (Input.keyPressed(Input.Jump) && !touchingGround) {
+                    //    StateGoto(pState.Glide);
+                    //}
+
                     if (Input.keyPressed(Input.Jump)) {
-                        StateGoto(pState.Idle);
+                        StateGoto(pState.Jump);
                     }
                     break;
                 #endregion
@@ -153,7 +172,7 @@ namespace Glide.Content {
                     }
                     if (Input.keyDown(Input.Down)) {
                         Move(Dir.Down, mspdClimb);
-                        Util.Log("DOWN!");
+                        //Util.Log("DOWN!");
                     }
 
 
@@ -240,7 +259,7 @@ namespace Glide.Content {
                 }
             }
         }
-
+        
         private void Launch(Vector2 v) {
             velocity.X = v.X;
             velocity.Y = v.Y;

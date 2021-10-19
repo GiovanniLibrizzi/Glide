@@ -28,6 +28,7 @@ namespace Glide.Content {
         private int levelTriggerData = 37;
 
         private Vector2Int playerSpawn;
+        private Actor.Dir dir;
 
         ContentManager content;
 
@@ -53,6 +54,7 @@ namespace Glide.Content {
             scene.Add(player);
             player.position.X = playerSpawn.x;
             player.position.Y = playerSpawn.y;
+            player.direction = dir;
         }
 
         private void loadFromJson() {
@@ -94,6 +96,7 @@ namespace Glide.Content {
                             break;
                         case "Player":
                             playerSpawn = new Vector2Int((int)entity.x, (int)entity.y);
+                            dir = (Actor.Dir)entity.values.direction;
                             break;
                     }
                     

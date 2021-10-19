@@ -13,7 +13,9 @@ namespace Glide.Content.Entities {
         public Texture2D texture { get; set; }
         public Transform transform;
 
-        protected Vector2 velocity;
+        public Vector2 velocity;
+
+        protected Sprite sprite;
 
         protected float friction;
         protected float mspd { get; set; }
@@ -21,12 +23,12 @@ namespace Glide.Content.Entities {
         protected float gravity = 0.15f;
         protected const float gravityDef = 0.15f;
 
-        protected bool touchingGround;
+        public bool touchingGround;
         protected bool touchingWall;
         protected bool touchingClimbable;
 
 
-        protected enum Dir {
+        public enum Dir {
             Stop = 0,
             Right = 1,
             Left = -1,
@@ -37,7 +39,7 @@ namespace Glide.Content.Entities {
 
         }
 
-        protected Dir direction;
+        public Dir direction;
 
 
 
@@ -51,8 +53,9 @@ namespace Glide.Content.Entities {
             transform = new Transform(position);
             AddComponent(transform);
 
-            Sprite sprite = new Sprite(texture);
+            sprite = new Sprite(texture);
             AddComponent(sprite);
+
         }
 
         // Moves actor downwards
@@ -185,6 +188,7 @@ namespace Glide.Content.Entities {
 
         protected void FlipDirection() {
             if (direction == Dir.Left) direction = Dir.Right; else direction = Dir.Left;
+            sprite.Scale(new Vector2((float)direction, 1f));
         }
 
     }

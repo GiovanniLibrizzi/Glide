@@ -32,7 +32,7 @@ namespace Glide {
         Camera camera;
         Player player;
         Texture2D tPlayer;
-        SpriteFont font1;
+        //SpriteFont font1;
         public enum GameState {
             TitleScreen,
             InGame
@@ -81,9 +81,12 @@ namespace Glide {
             graphics.ApplyChanges();
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            // use this.Content to load your game content here
             tPlayer = Content.Load<Texture2D>("Player");
-            font1 = Content.Load<SpriteFont>("Font1");
+            //font1 = Content.Load<SpriteFont>("Font1");
+
+            // TODO: Remove this to add a start menu
+            ToLevel("level1.json");
             //Texture2D tile_main = Content.Load<Texture2D>("tileset_glide");
             /*world = new World("level1.json", Content);
             player = new Player(tPlayer, new Vector2(120, 20), world);
