@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content.Entities {
+namespace Glide.Game.Entities {
     class Solid : Entity {
         public Vector2 position;
         //public Vector2Int size;

@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Glide.Content.Entities;
+using Glide.Game.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Player : Actor {
 
         public enum pState {

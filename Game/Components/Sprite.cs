@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Sprite : Component {
         public Texture2D texture { get; set; }
         public Vector2 scale = new Vector2(1f, 1f);

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Component {
         public Entity entity;
         public virtual void Update(GameTime gameTime) { }

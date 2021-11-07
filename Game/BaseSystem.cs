@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class BaseSystem<T> where T : Component {
         protected static List<T> components = new List<T>();
         public static void Register(T component) {

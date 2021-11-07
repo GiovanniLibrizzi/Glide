@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Transform : Component {
 
         public Vector2 position = Vector2.Zero;

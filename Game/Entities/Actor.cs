@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Glide.Content;
+using Glide.Game;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Glide.Content.Entities {
+namespace Glide.Game.Entities {
     class Actor : Entity {
         public Vector2 position;
         public Texture2D texture;

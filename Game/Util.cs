@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Util {
 
         public static float Lerp(float firstFloat, float secondFloat, float by) {

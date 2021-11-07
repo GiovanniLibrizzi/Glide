@@ -8,10 +8,10 @@ using static Microsoft.Xna.Framework.Content.ContentManager;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using Glide.Content.Entities;
+using Glide.Game.Entities;
 using LDtk;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class World {
         public List<Entity> scene = new List<Entity>();
 

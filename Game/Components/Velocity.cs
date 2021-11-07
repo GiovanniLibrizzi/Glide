@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Velocity : Component {
 
         public Vector2 velocity = Vector2.Zero;

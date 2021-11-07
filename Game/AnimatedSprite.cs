@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class AnimatedSprite {
         public Texture2D texture;
         public Vector2Int frameSize;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content.Entities {
+namespace Glide.Game.Entities {
     class SolidTexture : Solid {
         Texture2D texture;
         public SolidTexture(Texture2D texture, Vector2 position, World world) : base(position, world) {

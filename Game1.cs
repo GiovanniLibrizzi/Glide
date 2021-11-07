@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 using System.Collections.Generic;
 
-using Glide.Content;
+using Glide.Game;
 using System.Diagnostics;
-using Glide.Content.Entities;
+using Glide.Game.Entities;
 
 namespace Glide {
-    public class Game1 : Game {
+    public class Game1 : Microsoft.Xna.Framework.Game {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public const int SCREEN_WIDTH = 320;
@@ -57,9 +57,9 @@ namespace Glide {
             graphics.SynchronizeWithVerticalRetrace = true;
 
 
-           /* graphics.PreferredBackBufferWidth = ScreenWidth;  
-            graphics.PreferredBackBufferHeight = ScreenHeight;  
-            graphics.ApplyChanges();*/
+            /* graphics.PreferredBackBufferWidth = ScreenWidth;  
+             graphics.PreferredBackBufferHeight = ScreenHeight;  
+             graphics.ApplyChanges();*/
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -99,8 +99,7 @@ namespace Glide {
             tPlayerIdle = Content.Load<Texture2D>("pIdle");
             tPlayerLand = Content.Load<Texture2D>("pLand");
 
-            tSheetTest = Content.Load<Texture2D>("spritetest");
-            tSheetIdle = Content.Load<Texture2D>("spriteidle");
+ 
             playerSpriteList = new List<AnimatedSprite> {
                 new AnimatedSprite(tPlayerIdle, new Vector2Int(16, 16), 1),
                 new AnimatedSprite(tPlayerGlide, new Vector2Int(16, 16), 5),
@@ -130,7 +129,7 @@ namespace Glide {
         }
         public void ToLevel(string level) {
             world = new World(level, Content);
-            player = new Player(tSheetTest, playerSpriteList, new Vector2(120, 20), world);
+            player = new Player(tPlayer, playerSpriteList, new Vector2(120, 20), world);
             world.Add(player);
             camera = new Camera(world.worldSize);
             camera.approach.X = -player.position.X - (player.texture.Width / Camera.mod.x);

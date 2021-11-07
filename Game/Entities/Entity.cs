@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Entity {
         public int ID { get; set; }
         public List<Component> components = new List<Component>();

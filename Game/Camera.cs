@@ -1,10 +1,10 @@
-﻿using Glide.Content.Entities;
+﻿using Glide.Game.Entities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content {
+namespace Glide.Game {
     class Camera {
 
         private Vector2Int worldSize;

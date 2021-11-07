@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Glide.Content.Entities {
+namespace Glide.Game.Entities {
     class SolidNoTexture : Solid {
 
         Vector2Int size;
