@@ -54,9 +54,9 @@ namespace Glide.Game {
             // Resets frame count if changing sprites
             if (spriteList != null) {
                 if (spritePrevious != spriteCurrent) {
-                    Util.Log("Switching sprites");
                     animatedSprite = spriteList[spriteCurrent];
-                    //animatedSprite.frameCurrent = 0;
+                    animatedSprite.speed = spriteList[spriteCurrent].speedInit;
+                    animatedSprite.frameCurrent = 0;
                     //animatedSprite.
                 }
             }

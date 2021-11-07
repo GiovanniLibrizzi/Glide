@@ -91,9 +91,15 @@ namespace Glide.Game.Entities {
             foreach (Collision s in world.scene.OfType<Collision>()) {
                 if ((velocity.X > 0 && IsTouching(s, Dir.Left)) || (velocity.X < 0 && IsTouching(s, Dir.Right))) {
                     velocity.X = 0;
+                    position.X = (float)Math.Floor(position.X);
                     touchingWall = true;
                     if (s.GetType() == typeof(Climbable)) {
                         touchingClimbable = true;
+
+                        // Pushes character to latch onto wall (fixes bug where he was a few pixels off)
+                        if (position.X % 16 != 0) { // HARDCODED TO THE WIDTH, CHANGE THIS IF collisionBox CHANGES!
+                            position.X += (int)direction;
+                        }
                     }
                 }
 

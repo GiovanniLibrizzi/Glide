@@ -94,6 +94,7 @@ namespace Glide {
 
             // use this.Content to load your game content here
             tPlayer = Content.Load<Texture2D>("Player");
+
             tPlayerClimb = Content.Load<Texture2D>("pClimb");
             tPlayerGlide = Content.Load<Texture2D>("pGlide");
             tPlayerIdle = Content.Load<Texture2D>("pIdle");
@@ -102,7 +103,7 @@ namespace Glide {
  
             playerSpriteList = new List<AnimatedSprite> {
                 new AnimatedSprite(tPlayerIdle, new Vector2Int(16, 16), 1),
-                new AnimatedSprite(tPlayerGlide, new Vector2Int(16, 16), 5),
+                new AnimatedSprite(tPlayerGlide, new Vector2Int(16, 16), 10),
                 new AnimatedSprite(tPlayerClimb, new Vector2Int(16, 16), 7),
                 new AnimatedSprite(tPlayerLand, new Vector2Int(16, 16), 8)
             };

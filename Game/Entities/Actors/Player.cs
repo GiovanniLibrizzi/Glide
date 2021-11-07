@@ -88,7 +88,7 @@ namespace Glide.Game {
                 #region Idle
                 case pState.Idle:
                     spriteCurrent = pSprite.Idle;
-                    if (Math.Abs(velocity.X) > 0.05) spriteCurrent = pSprite.Land;
+                    if (Math.Abs(velocity.X) > 0.1) spriteCurrent = pSprite.Land;
                     if (touchingGround) friction = fricDef; else friction = fricAir;
                     StopMoving(); // Horizontally
                     // Transitions
@@ -100,6 +100,7 @@ namespace Glide.Game {
                 #endregion
                 #region Jump
                 case pState.Jump:
+                    spriteCurrent = pSprite.Idle;
                     if (touchingGround)
                         StopMoving(); // Horizontally
 
@@ -134,11 +135,11 @@ namespace Glide.Game {
                 #region Glide
                 case pState.Glide:
                     spriteCurrent = pSprite.Glide;
-
+                    //spriteList[(int)spriteCurrent].speed
                     Move(direction, mspd);
 
                     velocity.Y = Math.Max(velocity.Y, -0.1f);
-
+                    velocity.Y = Math.Min(velocity.Y, 0.95f);
                     // Transitions
                         // Bonk
                     if (touchingWall && !touchingClimbable && Math.Abs(velocity.X) > 0f) {
@@ -176,13 +177,13 @@ namespace Glide.Game {
                     spriteCurrent = pSprite.Climb;
                     velocity.X = (int)direction*3f;
 
-                    if (Input.keyDown(Input.Up)) {
-                        Move(Dir.Up, mspdClimb);
-                    }
-                    if (Input.keyDown(Input.Down)) {
-                        Move(Dir.Down, mspdClimb);
-                        //Util.Log("DOWN!");
-                    }
+                    //if (Input.keyDown(Input.Up)) {
+                        Move(Dir.Up, mspdClimb/1.15f);
+                    //}
+                    //if (Input.keyDown(Input.Down)) {
+                    //    Move(Dir.Down, mspdClimb);
+                    //    //Util.Log("DOWN!");
+                    //}
 
                     sprite.animatedSprite.speed = (int)(velocity.Y*8);
 
