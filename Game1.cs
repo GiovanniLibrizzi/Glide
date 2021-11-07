@@ -14,6 +14,7 @@ namespace Glide {
         private SpriteBatch spriteBatch;
         public const int SCREEN_WIDTH = 320;
         public const int SCREEN_HEIGHT = 180;
+        public const int FRAME_RATE = 60;
 
         public const int wres2 = SCREEN_WIDTH * 2;
         public const int hres2 = SCREEN_HEIGHT * 2;
@@ -32,6 +33,16 @@ namespace Glide {
         Camera camera;
         Player player;
         Texture2D tPlayer;
+        Texture2D tPlayerIdle;
+        Texture2D tPlayerGlide;
+        Texture2D tPlayerClimb;
+        Texture2D tPlayerLand;
+
+        Texture2D tSheetTest;
+        Texture2D tSheetIdle;
+        List<AnimatedSprite> playerSpriteList;
+
+
         //SpriteFont font1;
         public enum GameState {
             TitleScreen,
@@ -83,10 +94,24 @@ namespace Glide {
 
             // use this.Content to load your game content here
             tPlayer = Content.Load<Texture2D>("Player");
-            //font1 = Content.Load<SpriteFont>("Font1");
+            tPlayerClimb = Content.Load<Texture2D>("pClimb");
+            tPlayerGlide = Content.Load<Texture2D>("pGlide");
+            tPlayerIdle = Content.Load<Texture2D>("pIdle");
+            tPlayerLand = Content.Load<Texture2D>("pLand");
 
-            // TODO: Remove this to add a start menu
-            ToLevel("level1.json");
+            tSheetTest = Content.Load<Texture2D>("spritetest");
+            tSheetIdle = Content.Load<Texture2D>("spriteidle");
+            playerSpriteList = new List<AnimatedSprite> {
+                new AnimatedSprite(tPlayerIdle, new Vector2Int(16, 16), 1),
+                new AnimatedSprite(tPlayerGlide, new Vector2Int(16, 16), 5),
+                new AnimatedSprite(tPlayerClimb, new Vector2Int(16, 16), 7),
+                new AnimatedSprite(tPlayerLand, new Vector2Int(16, 16), 8)
+            };
+
+        //font1 = Content.Load<SpriteFont>("Font1");
+
+        // TODO: Remove this to add a start menu
+        ToLevel("level1.json");
             //Texture2D tile_main = Content.Load<Texture2D>("tileset_glide");
             /*world = new World("level1.json", Content);
             player = new Player(tPlayer, new Vector2(120, 20), world);
@@ -105,7 +130,7 @@ namespace Glide {
         }
         public void ToLevel(string level) {
             world = new World(level, Content);
-            player = new Player(tPlayer, new Vector2(120, 20), world);
+            player = new Player(tSheetTest, playerSpriteList, new Vector2(120, 20), world);
             world.Add(player);
             camera = new Camera(world.worldSize);
             camera.approach.X = -player.position.X - (player.texture.Width / Camera.mod.x);

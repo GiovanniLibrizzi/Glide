@@ -28,8 +28,6 @@ namespace Glide.Content {
         private Vector2 startingPosition;
         private Dir startingDir;
 
-        
-
 
         private const float mspdClimb = 0.8f;
         private const float mspdBonk = 1f;
@@ -40,18 +38,27 @@ namespace Glide.Content {
 
         private const float fricDef = 0.11f;
         private const float fricAir = 0.06f;
+
+        private List<AnimatedSprite> spriteList;
+        public enum pSprite {
+            Idle,
+            Glide,
+            Climb,
+            Land
+        }
+        private pSprite spriteCurrent = pSprite.Idle;
         //private const float gravGlide = 0.05f;
         //private const float gravBonk = 0.3f;
-       
-        public Player(Texture2D texture, Vector2 pos, World scene) : base(texture, pos, scene) {
+
+        public Player(Texture2D texture, List<AnimatedSprite> spriteList, Vector2 pos, World scene) : base(texture, spriteList, pos, scene) {
             mspd = 2.0f;
             jspd = 6.6f;
             friction = fricDef;
             direction = Dir.Right;
             startingPosition = position;
             startingDir = direction;
-            
-            
+
+            collisionBox = new Rectangle(0, 0, 16, 16);
         }
 
         public override void Update(GameTime gameTime) {
@@ -60,8 +67,9 @@ namespace Glide.Content {
             if (tick == 0) {
                 //Util.Log(direction.ToString() + "bruh");
                 sprite.Scale(new Vector2((float)direction, 1f));
+                //sWalking = new AnimatedSprite(texture, new Vector2Int(8, 8), 4);
             }
-
+            sprite.spriteCurrent = (int)spriteCurrent;
           
             // debug reset
             if (Input.keyPressed(Keys.R)) {
@@ -79,9 +87,10 @@ namespace Glide.Content {
             switch (state) {
                 #region Idle
                 case pState.Idle:
+                    spriteCurrent = pSprite.Idle;
+                    if (Math.Abs(velocity.X) > 0.05) spriteCurrent = pSprite.Land;
                     if (touchingGround) friction = fricDef; else friction = fricAir;
                     StopMoving(); // Horizontally
-
                     // Transitions
                     if (Input.keyPressed(Input.Jump) && touchingGround) {
                         Jump(jspd);
@@ -124,12 +133,11 @@ namespace Glide.Content {
                 #endregion
                 #region Glide
                 case pState.Glide:
+                    spriteCurrent = pSprite.Glide;
+
                     Move(direction, mspd);
 
                     velocity.Y = Math.Max(velocity.Y, -0.1f);
-
-
-
 
                     // Transitions
                         // Bonk
@@ -165,6 +173,7 @@ namespace Glide.Content {
                 #endregion
                 #region WallClimb
                 case pState.WallClimb:
+                    spriteCurrent = pSprite.Climb;
                     velocity.X = (int)direction*3f;
 
                     if (Input.keyDown(Input.Up)) {
@@ -175,7 +184,7 @@ namespace Glide.Content {
                         //Util.Log("DOWN!");
                     }
 
-
+                    sprite.animatedSprite.speed = (int)(velocity.Y*8);
 
                     // Transitions
                     if (tick > 4 && !touchingClimbable) {
@@ -196,6 +205,7 @@ namespace Glide.Content {
                 #endregion
                 #region Land
                 case pState.Land:
+                    spriteCurrent = pSprite.Land;
                     //velocity.X = Util.Lerp(velocity.X, 0, 0.1f);
                     StopMoving();
                     if (Math.Abs(velocity.X) < 0.1) {

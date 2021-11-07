@@ -10,8 +10,9 @@ using System.Linq;
 namespace Glide.Content.Entities {
     class Actor : Entity {
         public Vector2 position;
-        public Texture2D texture { get; set; }
+        public Texture2D texture;
         public Transform transform;
+        public List<AnimatedSprite> spriteList;
 
         public Vector2 velocity;
 
@@ -26,6 +27,7 @@ namespace Glide.Content.Entities {
         public bool touchingGround;
         protected bool touchingWall;
         protected bool touchingClimbable;
+        public Rectangle collisionBox; 
 
 
         public enum Dir {
@@ -54,6 +56,21 @@ namespace Glide.Content.Entities {
             AddComponent(transform);
 
             sprite = new Sprite(texture);
+            AddComponent(sprite);
+
+        }
+
+        public Actor(Texture2D texture, List<AnimatedSprite> spriteList, Vector2 pos, World scene) : base(scene) {
+
+            position = pos;
+            this.texture = texture;
+
+            this.spriteList = spriteList;
+
+            transform = new Transform(position);
+            AddComponent(transform);
+
+            sprite = new Sprite(spriteList, 0);
             AddComponent(sprite);
 
         }
@@ -139,7 +156,7 @@ namespace Glide.Content.Entities {
         protected bool IsTouching(Entity entity, Dir dir) {
             Rectangle entRect;
             Sprite sprite = entity.GetComponent<Sprite>();
-            Rectangle myRect = texture.Bounds;
+            Rectangle myRect = collisionBox;//texture.Bounds;
             Vector2 entPos = entity.GetComponent<Transform>().position;
 
             if (entity.HasComponent<Sprite>()) {
