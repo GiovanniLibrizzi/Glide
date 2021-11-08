@@ -43,8 +43,6 @@ namespace Glide {
         Texture2D tPlayerClimb;
         Texture2D tPlayerLand;
 
-        Texture2D tSheetTest;
-        Texture2D tSheetIdle;
         List<AnimatedSprite> playerSpriteList;
 
 

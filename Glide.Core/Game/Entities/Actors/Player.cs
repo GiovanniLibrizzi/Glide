@@ -40,7 +40,6 @@ namespace Glide.Game {
         private const float fricDef = 0.11f;
         private const float fricAir = 0.06f;
 
-        private List<AnimatedSprite> spriteList;
         public enum pSprite {
             Idle,
             Glide,

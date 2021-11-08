@@ -56,7 +56,7 @@ namespace Glide.Game {
         }
 
         public static bool keyDown(Btn btn) {
-            bool down = false;
+            //bool down = false;
             foreach (Keys key in btn.keys) {
                 if (keyDown(key)) return true;
             }
@@ -81,7 +81,7 @@ namespace Glide.Game {
         }
 
         public static bool keyPressed(Btn btn) {
-            bool down = false;
+            //bool down = false;
             foreach (Keys key in btn.keys) {
                 if (keyPressed(key)) return true;
             }
@@ -102,7 +102,7 @@ namespace Glide.Game {
 
 
         public static bool keyReleased(Btn btn) {
-            bool down = false;
+            //bool down = false;
             foreach (Keys key in btn.keys) {
                 if (keyReleased(key)) return true;
             }

@@ -7,7 +7,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Glide.Core", "Glide.Core\Gl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glide.Android", "Glide.Android\Glide.Android.csproj", "{869CE15D-8004-41B4-B1B9-02DE371ED1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glide.DesktopGL", "Glide.DesktopGL\Glide.DesktopGL.csproj", "{D4441C96-CE66-42B4-BAE7-34A8AAC1ECEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Glide.DesktopGL", "Glide.DesktopGL\Glide.DesktopGL.csproj", "{D4441C96-CE66-42B4-BAE7-34A8AAC1ECEA}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
