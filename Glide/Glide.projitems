@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6efba8a9-a407-4029-bdd0-651d22a87386</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Glide</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory).gitattributes" />
+    <None Include="$(MSBuildThisFileDirectory).gitignore" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\Collision.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\Font1.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\level1.json" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\level2.json" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\level3.json" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\pClimb.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\pGlide.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\pIdle.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\pLand.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\Player.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\bin\DesktopGL\Content\tile_main.xnb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Collision.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Font1.spritefont" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\.mgstats" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\Collision.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\Font1.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\pClimb.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\pGlide.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\pIdle.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\pLand.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\Player.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\obj\DesktopGL\Content\tile_main.mgcontent" />
+    <None Include="$(MSBuildThisFileDirectory)Content\pClimb.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\pGlide.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\pIdle.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\pLand.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Player.png" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\level1.json" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\level2.json" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\level3.json" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\test1.ogmo" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\tile_main.aseprite" />
+    <None Include="$(MSBuildThisFileDirectory)Levels\tile_main.png" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\AnimatedSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\BaseSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Camera.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Components\Component.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Components\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Components\Transform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Components\Velocity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Actor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Actors\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\LevelTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Solid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\SolidNoTexture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Solids\Climbable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Solids\Collision.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Solids\NormalTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Solids\SolidTexture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Util.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\World.cs" />
+  </ItemGroup>
+</Project>

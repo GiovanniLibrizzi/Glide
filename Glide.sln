@@ -1,25 +1,40 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glide", "Glide.csproj", "{6832652F-BE2C-45C2-BCD2-C1BB6546B24E}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Glide", "Glide\Glide.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glide.Android", "Glide.Android\Glide.Android.csproj", "{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Glide.DesktopGL", "Glide.DesktopGL\Glide.DesktopGL.csproj", "{1E6843BF-5A45-4C92-ABDA-7528E7BA38EE}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Glide\Glide.projitems*{1e6843bf-5a45-4c92-abda-7528e7ba38ee}*SharedItemsImports = 5
+		Glide\Glide.projitems*{5b7c67bd-acb2-42fc-b0d2-de9aef940822}*SharedItemsImports = 4
+		Glide\Glide.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6832652F-BE2C-45C2-BCD2-C1BB6546B24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6832652F-BE2C-45C2-BCD2-C1BB6546B24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6832652F-BE2C-45C2-BCD2-C1BB6546B24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6832652F-BE2C-45C2-BCD2-C1BB6546B24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7C67BD-ACB2-42FC-B0D2-DE9AEF940822}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1E6843BF-5A45-4C92-ABDA-7528E7BA38EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6843BF-5A45-4C92-ABDA-7528E7BA38EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6843BF-5A45-4C92-ABDA-7528E7BA38EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6843BF-5A45-4C92-ABDA-7528E7BA38EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {26F3EE76-44E3-4D20-8D7D-85C89EB9ECDA}
+		SolutionGuid = {405D13E0-82D5-44BA-BDCA-2C8CC8E6897D}
 	EndGlobalSection
 EndGlobal

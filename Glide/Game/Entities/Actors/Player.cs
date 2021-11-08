@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Glide.Game {
     class Player : Actor {
@@ -92,7 +93,7 @@ namespace Glide.Game {
                     if (touchingGround) friction = fricDef; else friction = fricAir;
                     StopMoving(); // Horizontally
                     // Transitions
-                    if (Input.keyPressed(Input.Jump) && touchingGround) {
+                    if ((Input.keyPressed(Input.Jump)) && touchingGround) {
                         Jump(jspd);
                         StateGoto(pState.Jump);
                     }
@@ -213,6 +214,10 @@ namespace Glide.Game {
                         velocity.X = 0;
                         StateGoto(pState.Idle);
                     }
+                    if ((Input.keyPressed(Input.Jump)) && touchingGround) {
+                        Jump(jspd);
+                        StateGoto(pState.Jump);
+                    }
                     break;
                 #endregion
                 #region Bonk
@@ -223,6 +228,9 @@ namespace Glide.Game {
                 #endregion
             }
             #endregion
+
+
+
             //Util.Log("state: " + state + " || touchingClimbable: " + touchingClimbable);
             // Movement Controls
             /*if (Input.keyDown(Input.Right)) {

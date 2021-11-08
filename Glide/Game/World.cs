@@ -9,7 +9,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Glide.Game.Entities;
-using LDtk;
+//using Android.Content.Res;
 
 namespace Glide.Game {
     class World {
@@ -58,7 +58,12 @@ namespace Glide.Game {
         }
 
         private void loadFromJson() {
-            using (StreamReader r = new StreamReader("content/"+levelFile)) {
+
+            string levelPath = string.Format("Content/{0}", levelFile);
+
+            // Android loading works :D
+            using (Stream stream = TitleContainer.OpenStream(levelPath))
+            using (StreamReader r = new StreamReader(stream)) {
                 string json = r.ReadToEnd();
                 dynamic array = JsonConvert.DeserializeObject(json);
 
@@ -70,7 +75,7 @@ namespace Glide.Game {
                 dynamic layers = array.layers[(int)Layer.Tiles];
 
                 // Get tileset 
-                string name = layers.tileset;   
+                string name = layers.tileset;
                 tileset = content.Load<Texture2D>(name);
 
                 // Get Tile Size
@@ -99,12 +104,14 @@ namespace Glide.Game {
                             dir = (Actor.Dir)entity.values.direction;
                             break;
                     }
-                    
+
                 }
-                
+
 
 
             }
+
+
         }
 
 

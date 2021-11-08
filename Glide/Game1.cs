@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Glide.Game;
 using System.Diagnostics;
 using Glide.Game.Entities;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Glide {
     public class Game1 : Microsoft.Xna.Framework.Game {
@@ -15,14 +16,18 @@ namespace Glide {
         public const int SCREEN_WIDTH = 320;
         public const int SCREEN_HEIGHT = 180;
         public const int FRAME_RATE = 60;
+        int backbufferWidth, backbufferHeight;
+        private Matrix globalTransformation;
 
         public const int wres2 = SCREEN_WIDTH * 2;
         public const int hres2 = SCREEN_HEIGHT * 2;
+#if !ANDROID
         public static int wScr = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         public static int hScr = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+#endif
         Rectangle CANVAS = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        public static int ScreenWidth = SCREEN_WIDTH * 4;
-        public static int ScreenHeight = SCREEN_HEIGHT * 4;
+        public static int ScreenWidth = SCREEN_WIDTH * 5;
+        public static int ScreenHeight = SCREEN_HEIGHT * 5;
         private RenderTarget2D _renderTarget;
 
 
@@ -55,7 +60,7 @@ namespace Glide {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = false;
             graphics.SynchronizeWithVerticalRetrace = true;
-
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
             /* graphics.PreferredBackBufferWidth = ScreenWidth;  
              graphics.PreferredBackBufferHeight = ScreenHeight;  
@@ -112,6 +117,7 @@ namespace Glide {
 
         // TODO: Remove this to add a start menu
         ToLevel("level1.json");
+            ScalePresentationArea();
             //Texture2D tile_main = Content.Load<Texture2D>("tileset_glide");
             /*world = new World("level1.json", Content);
             player = new Player(tPlayer, new Vector2(120, 20), world);
@@ -122,6 +128,16 @@ namespace Glide {
                 new NormalTile(tPlayer, new Vector2(190, 80), world)
             };*/
 
+        }
+
+        public void ScalePresentationArea() {
+            //Work out how much we need to scale our graphics to fill the screen
+            backbufferWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
+            backbufferHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
+            float horScaling = backbufferWidth / SCREEN_WIDTH;
+            float verScaling = backbufferHeight / SCREEN_HEIGHT;
+            Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
+            globalTransformation = Matrix.CreateScale(screenScalingFactor);
         }
 
         public static void LevelTransition(string level) {
@@ -140,10 +156,11 @@ namespace Glide {
         protected override void Update(GameTime gameTime) {
             Input.GetState();
             Input.GetMouseState();
-                
+            //Input.GetTouchState();
+
             if (camera != null) 
                 camera.Follow(player);
-
+#if !ANDROID
             float framerate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = "Game - " + System.String.Format("{0:0.00}", framerate) + " FPS";
 
@@ -154,7 +171,7 @@ namespace Glide {
                     Resolution(wScr, hScr, true);
                 }
             }
-
+#endif
             if (Input.keyPressed(Keys.F1)) {
                 ToLevel("level1.json");
             }

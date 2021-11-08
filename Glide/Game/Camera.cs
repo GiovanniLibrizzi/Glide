@@ -13,7 +13,7 @@ namespace Glide.Game {
 
         public static Vector2Int mod = new Vector2Int(2, 3);
 
-        public Matrix Transform { get; private set; }
+        public Matrix Transform;
         public Vector2 approach = new Vector2(0, 0);
         private float speed = 0.1f;
         private float speedSlow = 0.01f;

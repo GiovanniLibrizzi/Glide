@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Glide.Game {
     public class Input {
@@ -31,15 +32,25 @@ namespace Glide.Game {
         public int mx;
         public int my;
 
+        //static TouchPanelState touchState;
+        public TouchCollection touchState;
+
+        static bool currentTouchState;
+        static bool previousTouchState;
+
+
 
 
         //public static KeyboardState GetState() {
-        public static void GetState() { 
+        public static void GetState() {
             previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
 
             previousButtonState = currentButtonState;
             currentButtonState = GamePad.GetState(PlayerIndex.One);
+
+            previousTouchState = currentTouchState;
+            currentTouchState = AnyTouch();
             
             //return currentKeyState;
         }
@@ -62,6 +73,13 @@ namespace Glide.Game {
             return currentButtonState.IsButtonDown(button);
         }
 
+        public static bool touchDown() {
+            return currentTouchState;
+        }
+        public static bool touchPressed() {
+            return currentTouchState && !previousTouchState;
+        }
+
         public static bool keyPressed(Btn btn) {
             bool down = false;
             foreach (Keys key in btn.keys) {
@@ -69,6 +87,9 @@ namespace Glide.Game {
             }
             foreach (Buttons button in btn.buttons) {
                 if (keyPressed(button)) return true;
+            }
+            if (btn.buttons == Jump.buttons) {
+                if (touchPressed()) return true;
             }
             return false;
         }
@@ -103,6 +124,16 @@ namespace Glide.Game {
             newMouseState = Mouse.GetState();
             //mx = curMouseState.X;
             return mouseState;
+        }
+
+        public static TouchCollection GetTouchState() {
+            //previousTouchState = currentTouchState;
+            TouchCollection touchState = TouchPanel.GetState();
+            //currentTouchState = AnyTouch();
+
+
+            //mx = curMouseState.X;
+            return touchState;
         }
 
 
@@ -154,6 +185,15 @@ namespace Glide.Game {
                 buttons = new List<Buttons>() { button1 };
             }
 
+        }
+
+        public static bool AnyTouch() {
+            foreach (TouchLocation location in GetTouchState()) {
+                if (location.State == TouchLocationState.Pressed || location.State == TouchLocationState.Moved) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
