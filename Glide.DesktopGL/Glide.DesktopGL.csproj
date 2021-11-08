@@ -18,6 +18,9 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
@@ -25,5 +28,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-  <Import Project="..\Glide\Glide.projitems" Label="Shared" />
+  <ItemGroup>
+    <Folder Include="Content\bin\DesktopGL\Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Glide.sln" />
+  </ItemGroup>
+  <Import Project="..\Glide.Core\Glide.Core.projitems" Label="Shared" />
 </Project>
